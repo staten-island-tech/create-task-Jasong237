@@ -13,6 +13,8 @@ const DOMSelectors = {
 let number = 5;
 let answers = [];
 let pcAns = "";
+let pc = "";
+let ans = "";
 function start(event) {
   event.preventDefault();
   console.log("hello");
@@ -40,31 +42,86 @@ function startGame() {
   DOMSelectors.container.insertAdjacentHTML(
     "afterbegin",
     `
-  <button class="rock"> Hello </button>
-  <button class="paper"> Hello </button>
-  <button class="scissors"> Hello </button>
+  <button class="rock"> Rock </button>
+  <button class="paper"> Paper </button>
+  <button class="scissors"> Scissors </button>
   `
   );
-
   chooseChoice();
 }
 
 function chooseChoice() {
-  for (let i = 1; i <= number; i++) {
-    pcAnswer();
+  for (let i = 0; i < number; i++) {
+    document.querySelector(".rock").addEventListener("click", rock);
+    document.querySelector(".paper").addEventListener("click", paper);
+    document.querySelector(".scissors").addEventListener("click", scissors);
   }
 }
 
 function pcAnswer() {
-  let pc = Math.random();
-  if (pc <= 0.3333) {
+  pc = Math.random();
+  console.log(pc);
+
+  if (pc < 0.3333) {
     pcAns = "rock";
   }
-  if (pc <= 0.6666) {
+  if (pc > 0.6666) {
     pcAns = "paper";
   } else {
     pcAns = "scissors";
   }
+  console.log("the bot chooses", pcAns);
+  console.log("You chose", ans, "the bot chose", pcAns);
+}
+
+function rock() {
+  ans = "rock";
+  console.log("rock was chosen");
+  pcAnswer();
+  if (pc <= 0.3333) {
+    console.log("Tie!");
+    return;
+  }
+  if (pc >= 0.6666) {
+    console.log("Loser!");
+    return;
+  } else {
+    console.log("Winner!");
+    return;
+  }
+}
+
+function paper() {
+  ans = "paper";
+  console.log("paper was chosen");
+  pcAnswer();
+  if (pc <= 0.3333) {
+    console.log("Winner!");
+  }
+  if (pc >= 0.6666) {
+    console.log("Tie!");
+  } else {
+    console.log("Loser!");
+  }
+}
+
+function scissors() {
+  ans = "scissors";
+  console.log("scissors was chosen");
+  pcAnswer();
+  if (pc <= 0.3333) {
+    console.log("Loser!");
+  }
+  if (pc >= 0.6666) {
+    console.log("Winner!");
+  } else {
+    console.log("Tie!");
+  }
+}
+
+function endGame() {
+  DOMSelectors.body.innerHTML = "";
+  alert("Done!");
 }
 
 DOMSelectors.start.addEventListener("click", start);

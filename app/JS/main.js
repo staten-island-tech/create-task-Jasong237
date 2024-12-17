@@ -11,6 +11,8 @@ const DOMSelectors = {
 };
 
 let number = 5;
+let round = 0;
+let result = "";
 let answers = [];
 let pcAns = "";
 let pc = "";
@@ -47,11 +49,18 @@ function startGame() {
   <button class="scissors"> Scissors </button>
   `
   );
+  DOMSelectors.body.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <button class="end"> End Game </button>
+    `
+  );
   chooseChoice();
 }
 
 function chooseChoice() {
   for (let i = 0; i < number; i++) {
+    round++;
     document.querySelector(".rock").addEventListener("click", rock);
     document.querySelector(".paper").addEventListener("click", paper);
     document.querySelector(".scissors").addEventListener("click", scissors);
@@ -72,6 +81,7 @@ function pcAnswer() {
   }
   console.log("the bot chooses", pcAns);
   console.log("You chose", ans, "the bot chose", pcAns);
+  answers.push(`Round ${round}:`, result);
 }
 
 function rock() {
@@ -80,13 +90,16 @@ function rock() {
   pcAnswer();
   if (pc <= 0.3333) {
     console.log("Tie!");
+    result = "tie";
     return;
   }
   if (pc >= 0.6666) {
     console.log("Loser!");
+    result = "loser";
     return;
   } else {
     console.log("Winner!");
+    result = "winner";
     return;
   }
 }
@@ -97,11 +110,14 @@ function paper() {
   pcAnswer();
   if (pc <= 0.3333) {
     console.log("Winner!");
+    return;
   }
   if (pc >= 0.6666) {
     console.log("Tie!");
+    return;
   } else {
     console.log("Loser!");
+    return;
   }
 }
 
@@ -111,17 +127,24 @@ function scissors() {
   pcAnswer();
   if (pc <= 0.3333) {
     console.log("Loser!");
+    return;
   }
   if (pc >= 0.6666) {
     console.log("Winner!");
+    return;
   } else {
     console.log("Tie!");
+    return;
   }
 }
 
-function endGame() {
+function end() {
   DOMSelectors.body.innerHTML = "";
   alert("Done!");
+  countScore();
 }
 
+function countScore() {}
+
 DOMSelectors.start.addEventListener("click", start);
+DOMSelectors.end.addEventListener("click", end);

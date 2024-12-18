@@ -4,6 +4,7 @@ const DOMSelectors = {
   body: document.querySelector(".body"),
   container: document.querySelector(".container"),
   start: document.querySelector(".start"),
+  end: document.querySelector(".end"),
   number: document.querySelector(".number"),
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
@@ -17,6 +18,10 @@ let answers = [];
 let pcAns = "";
 let pc = "";
 let ans = "";
+let win = 0;
+let lose = 0;
+let tie = 0;
+
 function start(event) {
   event.preventDefault();
   console.log("hello");
@@ -49,12 +54,7 @@ function startGame() {
   <button class="scissors"> Scissors </button>
   `
   );
-  DOMSelectors.body.insertAdjacentHTML(
-    "afterbegin",
-    `
-    <button class="end"> End Game </button>
-    `
-  );
+
   chooseChoice();
 }
 
@@ -68,36 +68,38 @@ function chooseChoice() {
 }
 
 function pcAnswer() {
-  pc = Math.random();
+  pc = Math.floor(Math.random() * 3);
   console.log(pc);
 
-  if (pc < 0.3333) {
+  if (pc === 0) {
     pcAns = "rock";
   }
-  if (pc > 0.6666) {
+  if (pc === 1) {
     pcAns = "paper";
-  } else {
+  }
+  if (pc === 2) {
     pcAns = "scissors";
   }
   console.log("the bot chooses", pcAns);
   console.log("You chose", ans, "the bot chose", pcAns);
-  answers.push(`Round ${round}:`, result);
+  answers.push(result);
 }
 
 function rock() {
   ans = "rock";
   console.log("rock was chosen");
   pcAnswer();
-  if (pc <= 0.3333) {
+  if (pc === 0) {
     console.log("Tie!");
     result = "tie";
     return;
   }
-  if (pc >= 0.6666) {
+  if (pc === 1) {
     console.log("Loser!");
     result = "loser";
     return;
-  } else {
+  }
+  if (pc === 2) {
     console.log("Winner!");
     result = "winner";
     return;
@@ -142,9 +144,35 @@ function end() {
   DOMSelectors.body.innerHTML = "";
   alert("Done!");
   countScore();
+  console.log(
+    "You won",
+    `${win}`,
+    "times and lost",
+    `${lose}`,
+    "times (also",
+    `${tie}`,
+    "ties)"
+  );
 }
 
-function countScore() {}
+function countScore() {
+  for (let i = 1; i < answers.length; i++) {
+    if ((answer[i] = "win")) {
+      win++;
+      console.log("once");
+      return;
+    }
+    if ((answer[i] = "lose")) {
+      lose++;
+      console.log("twice");
+      return;
+    } else {
+      tie++;
+      console.log("three");
+      return;
+    }
+  }
+}
 
 DOMSelectors.start.addEventListener("click", start);
 DOMSelectors.end.addEventListener("click", end);

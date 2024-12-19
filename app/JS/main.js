@@ -73,11 +73,9 @@ function pcAnswer() {
 
   if (pc === 0) {
     pcAns = "rock";
-  }
-  if (pc === 1) {
+  } else if (pc === 1) {
     pcAns = "paper";
-  }
-  if (pc === 2) {
+  } else if (pc === 2) {
     pcAns = "scissors";
   }
   console.log("the bot chooses", pcAns);

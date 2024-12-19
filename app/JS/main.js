@@ -80,7 +80,6 @@ function pcAnswer() {
   }
   console.log("the bot chooses", pcAns);
   console.log("You chose", ans, "the bot chose", pcAns);
-  answers.push(result);
 }
 
 function rock() {
@@ -90,57 +89,50 @@ function rock() {
   if (pc === 0) {
     console.log("Tie!");
     result = "tie";
-    return;
-  }
-  if (pc === 1) {
+  } else if (pc === 1) {
     console.log("Loser!");
     result = "loser";
-    return;
-  }
-  if (pc === 2) {
+  } else if (pc === 2) {
     console.log("Winner!");
     result = "winner";
-    return;
   }
+  answers.push(result);
 }
 
 function paper() {
   ans = "paper";
   console.log("paper was chosen");
   pcAnswer();
-  if (pc <= 0.3333) {
+  if (pc === 0) {
     console.log("Winner!");
-    return;
   }
-  if (pc >= 0.6666) {
+  if (pc === 1) {
     console.log("Tie!");
-    return;
-  } else {
+  } else if (pc === 2) {
     console.log("Loser!");
-    return;
   }
+  answers.push(result);
 }
 
 function scissors() {
   ans = "scissors";
   console.log("scissors was chosen");
   pcAnswer();
-  if (pc <= 0.3333) {
+  if (pc === 0) {
     console.log("Loser!");
-    return;
   }
-  if (pc >= 0.6666) {
+  if (pc === 1) {
     console.log("Winner!");
-    return;
-  } else {
+  } else if (pc === 2) {
     console.log("Tie!");
-    return;
   }
+  answers.push(result);
 }
 
 function end() {
+  console.log(answers);
   DOMSelectors.body.innerHTML = "";
-  alert("Done!");
+  /*   alert("Done!"); */
   countScore();
   console.log(
     "You won",
@@ -154,20 +146,16 @@ function end() {
 }
 
 function countScore() {
-  for (let i = 1; i < answers.length; i++) {
-    if ((answer[i] = "win")) {
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i] === "winner") {
       win++;
       console.log("once");
-      return;
-    }
-    if ((answer[i] = "lose")) {
+    } else if (answers[i] === "loser") {
       lose++;
       console.log("twice");
-      return;
-    } else {
+    } else if (answers[i] === "tie") {
       tie++;
       console.log("three");
-      return;
     }
   }
 }

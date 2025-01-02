@@ -3,49 +3,32 @@ import "../css/style.css";
 const DOMSelectors = {
   body: document.querySelector(".body"),
   container: document.querySelector(".container"),
+  endContainer: document.querySelector(".endContainer"),
   start: document.querySelector(".start"),
-  end: document.querySelector(".end"),
-  number: document.querySelector(".number"),
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
   scissors: document.querySelector(".scissors"),
 };
 
-let number = 5;
-let round = 0;
 let result = "";
 let answers = [];
-let pcAns = "";
-let pc = "";
-let ans = "";
+let pcChoice = "";
+let randomNum = "";
+let inputChoice = "";
 let win = 0;
 let lose = 0;
 let tie = 0;
 
+startGame();
+
 function start(event) {
   event.preventDefault();
-  console.log("hello");
-  number = DOMSelectors.number.value;
-
-  startGame(); /* 
-  if (number <= 0) {
-    alert("Please enter a number above 0");
-    return;
-  }
-  if (number >= 100) {
-    alert("Why would one play RPS over a hundred times");
-    return;
-  }
-  if (number % 1 === 0) {
-    startGame();
-  } else {
-    alert("Whole numbers only!");
-    return;
-  }*/
+  console.log("Starting game...");
+  startGame();
 }
 
 function startGame() {
-  /*   DOMSelectors.body.innerHTML = ""; */
+  DOMSelectors.body.innerHTML = "";
   DOMSelectors.container.insertAdjacentHTML(
     "afterbegin",
     `
@@ -55,44 +38,49 @@ function startGame() {
   `
   );
 
-  chooseChoice();
-}
-
-function chooseChoice() {
-  for (let i = 0; i < number; i++) {
-    round++;
-    document.querySelector(".rock").addEventListener("click", rock);
-    document.querySelector(".paper").addEventListener("click", paper);
-    document.querySelector(".scissors").addEventListener("click", scissors);
-  }
+  document.querySelector(".rock").addEventListener("click", rock);
+  document.querySelector(".paper").addEventListener("click", paper);
+  document.querySelector(".scissors").addEventListener("click", scissors);
 }
 
 function pcAnswer() {
-  pc = Math.floor(Math.random() * 3);
-  console.log(pc);
+  randomNum = Math.floor(Math.random() * 3);
+  console.log(randomNum);
 
-  if (pc === 0) {
-    pcAns = "rock";
-  } else if (pc === 1) {
-    pcAns = "paper";
-  } else if (pc === 2) {
-    pcAns = "scissors";
+  if (randomNum === 0) {
+    pcChoice = "rock";
+  } else if (randomNum === 1) {
+    pcChoice = "paper";
+  } else if (randomNum === 2) {
+    pcChoice = "scissors";
   }
-  console.log("the bot chooses", pcAns);
-  console.log("You chose", ans, "the bot chose", pcAns);
+  console.log("the bot chooses", pcChoice);
+  console.log("You chose", inputChoice, "the bot chose", pcChoice);
+
+  DOMSelectors.endContainer.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <h3 class="finalInput"> You chose ${inputChoice}</h3>
+    <h3 class="finalPc"> The bot chose ${pcChoice}</h3>
+    `
+  );
+  document.querySelector(".finalInput").classList.add("invisible");
+  document.querySelector(".finalPc").classList.add("invisible");
 }
 
 function rock() {
-  ans = "rock";
+  inputChoice = "rock";
   console.log("rock was chosen");
+  document.querySelector(".paper").classList.add("animation");
+  document.querySelector(".scissors").classList.add("animation");
   pcAnswer();
-  if (pc === 0) {
+  if (pcChoice === "rock") {
     console.log("Tie!");
     result = "tie";
-  } else if (pc === 1) {
+  } else if (pcChoice === "paper") {
     console.log("Loser!");
     result = "loser";
-  } else if (pc === 2) {
+  } else if (pcChoice === "scissors") {
     console.log("Winner!");
     result = "winner";
   }
@@ -100,31 +88,37 @@ function rock() {
 }
 
 function paper() {
-  ans = "paper";
+  inputChoice = "paper";
   console.log("paper was chosen");
   pcAnswer();
-  if (pc === 0) {
+  if (pcChoice === "rock") {
     console.log("Winner!");
+    result = "winner";
   }
-  if (pc === 1) {
+  if (pcChoice === "paper") {
     console.log("Tie!");
-  } else if (pc === 2) {
+    result = "tie";
+  } else if (pcChoice === "scissors") {
     console.log("Loser!");
+    result = "loser";
   }
   answers.push(result);
 }
 
 function scissors() {
-  ans = "scissors";
+  inputChoice = "scissors";
   console.log("scissors was chosen");
   pcAnswer();
-  if (pc === 0) {
+  if (pcChoice === "rock") {
     console.log("Loser!");
+    result = "loser";
   }
-  if (pc === 1) {
+  if (pcChoice === "paper") {
     console.log("Winner!");
-  } else if (pc === 2) {
+    result = "winner";
+  } else if (pcChoice === "scissors") {
     console.log("Tie!");
+    result = "tie";
   }
   answers.push(result);
 }
@@ -132,7 +126,6 @@ function scissors() {
 function end() {
   console.log(answers);
   DOMSelectors.body.innerHTML = "";
-  /*   alert("Done!"); */
   countScore();
   console.log(
     "You won",
@@ -161,4 +154,4 @@ function countScore() {
 }
 
 DOMSelectors.start.addEventListener("click", start);
-DOMSelectors.end.addEventListener("click", end);
+document.querySelector(".end").addEventListener("click", end);

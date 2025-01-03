@@ -5,6 +5,12 @@
   height: 300px;
   margin: 100px;
 }
+.rockimg,
+.paperimg,
+.scissorsimg {
+  width: 200px;
+  height: 200px;
+}
 
 .container {
   width: 100%;
@@ -52,7 +58,7 @@
 }
 
 .invisible {
-  animation: appear 2s ease-in-out both;
+  animation: appear 4s ease-in-out both;
 }
 
 @keyframes appear {
@@ -60,18 +66,23 @@
     opacity: 0;
   }
 
-  25% {
+  50% {
+    opacity: 0;
+  }
+
+  60% {
     opacity: 0.25;
   }
 
-  50% {
-    opacity: 0.5;
+  70% {
+    opacity: 0.50;
   }
-
-  75% {
+  80% {
     opacity: 0.75;
   }
-
+  90% {
+    opacity: 1;
+  }
   100% {
     opacity: 1;
   }

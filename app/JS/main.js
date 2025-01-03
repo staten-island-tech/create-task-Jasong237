@@ -10,6 +10,8 @@ const DOMSelectors = {
   scissors: document.querySelector(".scissors"),
 };
 
+let options = ["rock", "paper", "scissors"];
+let removedOptions = [];
 let result = "";
 let answers = [];
 let pcChoice = "";
@@ -21,22 +23,18 @@ let tie = 0;
 
 startGame();
 
-function start(event) {
-  event.preventDefault();
-  console.log("Starting game...");
-  startGame();
-}
-
 function startGame() {
   DOMSelectors.body.innerHTML = "";
-  DOMSelectors.container.insertAdjacentHTML(
-    "afterbegin",
-    `
-  <button class="rock"> Rock </button>
-  <button class="paper"> Paper </button>
-  <button class="scissors"> Scissors </button>
+  options.forEach((option) => {
+    DOMSelectors.container.insertAdjacentHTML(
+      "beforeend",
+      `
+  <button class="${option}"> 
+  <img class="${option}img" src="${option}.png" alt="${option}"> </button>
+
   `
-  );
+    );
+  });
 
   document.querySelector(".rock").addEventListener("click", rock);
   document.querySelector(".paper").addEventListener("click", paper);
@@ -58,7 +56,7 @@ function pcAnswer() {
   console.log("You chose", inputChoice, "the bot chose", pcChoice);
 
   DOMSelectors.endContainer.insertAdjacentHTML(
-    "afterbegin",
+    "beforeend",
     `
     <h3 class="finalInput"> You chose ${inputChoice}</h3>
     <h3 class="finalPc"> The bot chose ${pcChoice}</h3>
@@ -70,9 +68,8 @@ function pcAnswer() {
 
 function rock() {
   inputChoice = "rock";
+  removeOthers();
   console.log("rock was chosen");
-  document.querySelector(".paper").classList.add("animation");
-  document.querySelector(".scissors").classList.add("animation");
   pcAnswer();
   if (pcChoice === "rock") {
     console.log("Tie!");
@@ -89,6 +86,7 @@ function rock() {
 
 function paper() {
   inputChoice = "paper";
+  removeOthers();
   console.log("paper was chosen");
   pcAnswer();
   if (pcChoice === "rock") {
@@ -107,6 +105,7 @@ function paper() {
 
 function scissors() {
   inputChoice = "scissors";
+  removeOthers();
   console.log("scissors was chosen");
   pcAnswer();
   if (pcChoice === "rock") {
@@ -121,6 +120,20 @@ function scissors() {
     result = "tie";
   }
   answers.push(result);
+}
+
+function removeOthers() {
+  removedOptions = [];
+  console.log(removedOptions);
+  options.forEach((option) => {
+    if (option != inputChoice) {
+      removedOptions.push(option);
+    }
+  });
+  console.log("the released options are:", removedOptions);
+  removedOptions.forEach((removedOption) => {
+    document.querySelector(`.${removedOption}`).classList.add("animation");
+  });
 }
 
 function end() {

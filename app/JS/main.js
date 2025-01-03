@@ -8,6 +8,8 @@ const DOMSelectors = {
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
   scissors: document.querySelector(".scissors"),
+  next: document.querySelector(".next"),
+  finalPc: document.querySelector(".finalPc"),
 };
 
 let options = ["rock", "paper", "scissors"];
@@ -60,10 +62,13 @@ function pcAnswer() {
     `
     <h3 class="finalInput"> You chose ${inputChoice}</h3>
     <h3 class="finalPc"> The bot chose ${pcChoice}</h3>
+    <button class="next"> Next Round </button>
     `
   );
-  document.querySelector(".finalInput").classList.add("invisible");
-  document.querySelector(".finalPc").classList.add("invisible");
+  document.querySelector(".finalInput").classList.toggle("visible");
+  document.querySelector(".finalPc").classList.toggle("visible");
+  document.querySelector(".next").addEventListener("click", nextGame);
+  document.querySelector(".next").classList.toggle("appear");
 }
 
 function rock() {
@@ -132,8 +137,28 @@ function removeOthers() {
   });
   console.log("the released options are:", removedOptions);
   removedOptions.forEach((removedOption) => {
-    document.querySelector(`.${removedOption}`).classList.add("animation");
+    document.querySelector(`.${removedOption}`).classList.toggle("explode");
   });
+}
+
+function nextGame() {
+  document.querySelector(".next").classList.toggle("appear");
+  document.querySelector(".next").innerHTML = "";
+
+  options.forEach((option) => {
+    document.querySelector(`.${option}`).classList.toggle("reappear");
+  });
+
+  document.querySelector(".finalInput").classList.toggle("visible");
+  document.querySelector(".finalPc").classList.toggle("visible");
+  document.querySelector(".finalInput").innerHTML = "";
+  DOMSelectors.finalPc.innerHTML = "";
+  console.log("I removed it");
+  removedOptions.forEach((removedOption) => {
+    document.querySelector(`.${removedOption}`).classList.toggle("explode");
+  });
+  removedOptions = [];
+  console.log("The removed options array", removedOptions);
 }
 
 function end() {
@@ -166,5 +191,4 @@ function countScore() {
   }
 }
 
-DOMSelectors.start.addEventListener("click", start);
 document.querySelector(".end").addEventListener("click", end);

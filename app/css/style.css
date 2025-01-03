@@ -26,7 +26,7 @@
   opacity: 0;
 }
 
-.animation {
+.explode {
   animation: disappear 2s ease-in-out both;
 }
 
@@ -57,11 +57,11 @@
   }
 }
 
-.invisible {
-  animation: appear 4s ease-in-out both;
+.visible {
+  animation: visible 4s ease-in-out both;
 }
 
-@keyframes appear {
+@keyframes visible {
   0% {
     opacity: 0;
   }
@@ -75,7 +75,7 @@
   }
 
   70% {
-    opacity: 0.50;
+    opacity: 0.5;
   }
   80% {
     opacity: 0.75;
@@ -85,5 +85,55 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+.appear {
+  animation: appear 6s ease-in-out both;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.25;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.reappear {
+  animation: reappear 2s ease-in-out both;
+}
+
+@keyframes reappear {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }

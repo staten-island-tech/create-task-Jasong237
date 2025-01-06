@@ -18,3 +18,9 @@ function findDiff(x,y){
 
 // use a set??
 ```
+
+ask to build out smth and see what it would look like
+
+or
+
+receive last years projects and find mistakes

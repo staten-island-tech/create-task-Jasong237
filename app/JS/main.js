@@ -3,7 +3,7 @@ import "../css/style.css";
 const DOMSelectors = {
   body: document.querySelector(".body"),
   container: document.querySelector(".container"),
-  endContainer: document.querySelector(".endContainer"),
+  textContainer: document.querySelector(".textContainer"),
   start: document.querySelector(".start"),
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
@@ -14,6 +14,7 @@ const DOMSelectors = {
 
 let options = ["rock", "paper", "scissors"];
 let removedOptions = [];
+let chosenOption = [];
 let result = "";
 let answers = [];
 let pcChoice = "";
@@ -33,14 +34,21 @@ function startGame() {
       `
   <button class="${option}"> 
   <img class="${option}img" src="${option}.png" alt="${option}"> </button>
-
   `
     );
   });
-
+  /*   options.forEach((option) => {
+    document
+      .querySelector(`${option}`)
+      .addEventListener("click", `${option}`)
+      .classList.toggle("reappear");
+  }); */
   document.querySelector(".rock").addEventListener("click", rock);
   document.querySelector(".paper").addEventListener("click", paper);
   document.querySelector(".scissors").addEventListener("click", scissors);
+  document.querySelector(".rock").classList.toggle("reappear");
+  document.querySelector(".paper").classList.toggle("reappear");
+  document.querySelector(".scissors").classList.toggle("reappear");
 }
 
 function pcAnswer() {
@@ -57,7 +65,7 @@ function pcAnswer() {
   console.log("the bot chooses", pcChoice);
   console.log("You chose", inputChoice, "the bot chose", pcChoice);
 
-  DOMSelectors.endContainer.insertAdjacentHTML(
+  DOMSelectors.textContainer.insertAdjacentHTML(
     "beforeend",
     `
     <h3 class="finalInput"> You chose ${inputChoice}</h3>
@@ -133,32 +141,39 @@ function removeOthers() {
   options.forEach((option) => {
     if (option != inputChoice) {
       removedOptions.push(option);
+    } else {
+      chosenOption.push(option);
     }
   });
   console.log("the released options are:", removedOptions);
   removedOptions.forEach((removedOption) => {
+    document.querySelector(`.${removedOption}`).classList.toggle("reappear");
     document.querySelector(`.${removedOption}`).classList.toggle("explode");
   });
+  hello();
 }
 
+/* function hello() {
+  DOMSelectors.container.innerHTML = "";
+  DOMSelectors.container.insertAdjacentHTML(
+    "beforeend",
+    `
+    <button class="${chosenOption}"> 
+    <img class="${chosenOption}img" src="${chosenOption}.png" alt="${chosenOption}"> </button>
+  `
+  );
+} */
 function nextGame() {
   document.querySelector(".next").classList.toggle("appear");
   document.querySelector(".next").innerHTML = "";
-
-  options.forEach((option) => {
-    document.querySelector(`.${option}`).classList.toggle("reappear");
-  });
-
   document.querySelector(".finalInput").classList.toggle("visible");
   document.querySelector(".finalPc").classList.toggle("visible");
-  document.querySelector(".finalInput").innerHTML = "";
-  DOMSelectors.finalPc.innerHTML = "";
+  document.querySelector(".textContainer").innerHTML = "";
+  document.querySelector(".container").innerHTML = "";
   console.log("I removed it");
-  removedOptions.forEach((removedOption) => {
-    document.querySelector(`.${removedOption}`).classList.toggle("explode");
-  });
   removedOptions = [];
   console.log("The removed options array", removedOptions);
+  startGame();
 }
 
 function end() {

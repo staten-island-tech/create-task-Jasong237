@@ -1,3 +1,9 @@
+.end {
+  text-align: center;
+}
+
+
+
 .rock,
 .paper,
 .scissors {
@@ -22,15 +28,16 @@
 }
 
 .finalInput,
-.finalPc {
+.finalPc,
+.result {
   opacity: 0;
 }
 
 .explode {
-  animation: disappear 2s ease-in-out both;
+  animation: explode 2s ease-in-out both;
 }
 
-@keyframes disappear {
+@keyframes explode {
   0% {
     transform: scale(1);
     opacity: 1;
@@ -57,11 +64,11 @@
   }
 }
 
-.visible {
-  animation: visible 4s ease-in-out both;
+.showChoices {
+  animation: showChoices 4s ease-in-out both;
 }
 
-@keyframes visible {
+@keyframes showChoices {
   0% {
     opacity: 0;
   }
@@ -88,11 +95,11 @@
   }
 }
 
-.appear {
-  animation: appear 6s ease-in-out both;
+.revealResult {
+  animation: revealResult 6s ease-in-out both;
 }
 
-@keyframes appear {
+@keyframes revealResult {
   0% {
     opacity: 0;
   }
@@ -116,11 +123,40 @@
   }
 }
 
-.reappear {
-  animation: reappear 2s ease-in-out both;
+
+.nextRound {
+  animation: nextRound 7s ease-in-out both;
 }
 
-@keyframes reappear {
+@keyframes nextRound {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.25;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.resetButtons {
+  animation: resetButtons 2s ease-in-out both;
+}
+
+@keyframes resetButtons {
   0% {
     opacity: 0;
   }
@@ -137,3 +173,36 @@
     transform: scale(1);
   }
 }
+
+
+.revealFinal {
+  animation: showChoices 2s ease-in-out both;
+}
+
+@keyframes showChoices {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 0.25;
+  }
+
+  70% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+

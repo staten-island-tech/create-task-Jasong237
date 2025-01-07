@@ -1,15 +1,15 @@
 import "../css/style.css";
 
 const DOMSelectors = {
-  body: document.querySelector(".body"),
   container: document.querySelector(".container"),
   textContainer: document.querySelector(".textContainer"),
+  endContainer: document.querySelector(".endContainer"),
   start: document.querySelector(".start"),
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
   scissors: document.querySelector(".scissors"),
-  next: document.querySelector(".next"),
   finalPc: document.querySelector(".finalPc"),
+  result: document.querySelector(".result"),
 };
 
 let options = ["rock", "paper", "scissors"];
@@ -19,7 +19,6 @@ let choice = "";
 let result = "";
 let answers = [];
 let pcChoice = "";
-let randomNum = "";
 let inputChoice = "";
 let win = 0;
 let lose = 0;
@@ -28,8 +27,6 @@ let tie = 0;
 startGame();
 
 function startGame() {
-  DOMSelectors.body.innerHTML = "";
-
   options.forEach((option) => {
     DOMSelectors.container.insertAdjacentHTML(
       "beforeend",
@@ -39,16 +36,16 @@ function startGame() {
   `
     );
   });
-  document.querySelector(".rock").classList.toggle("reappear");
-  document.querySelector(".paper").classList.toggle("reappear");
-  document.querySelector(".scissors").classList.toggle("reappear");
+  document.querySelector(".rock").classList.toggle("resetButtons");
+  document.querySelector(".paper").classList.toggle("resetButtons");
+  document.querySelector(".scissors").classList.toggle("resetButtons");
   document.querySelector(".rock").addEventListener("click", rock);
   document.querySelector(".paper").addEventListener("click", paper);
   document.querySelector(".scissors").addEventListener("click", scissors);
 }
 
 function pcAnswer() {
-  randomNum = Math.floor(Math.random() * 3);
+  let randomNum = Math.floor(Math.random() * 3);
   console.log(randomNum);
 
   if (randomNum === 0) {
@@ -60,19 +57,6 @@ function pcAnswer() {
   }
   console.log("the bot chooses", pcChoice);
   console.log("You chose", inputChoice, "the bot chose", pcChoice);
-
-  DOMSelectors.textContainer.insertAdjacentHTML(
-    "beforeend",
-    `
-    <h3 class="finalInput"> You chose ${inputChoice}</h3>
-    <h3 class="finalPc"> The bot chose ${pcChoice}</h3>
-    <button class="next"> Next Round </button>
-    `
-  );
-  document.querySelector(".finalInput").classList.toggle("visible");
-  document.querySelector(".finalPc").classList.toggle("visible");
-  document.querySelector(".next").addEventListener("click", nextGame);
-  document.querySelector(".next").classList.toggle("appear");
 }
 
 function round(choice) {
@@ -96,6 +80,21 @@ function round(choice) {
   }
 
   answers.push(result);
+
+  DOMSelectors.textContainer.insertAdjacentHTML(
+    "beforeend",
+    `
+    <h3 class="finalInput"> You chose ${inputChoice}</h3>
+    <h3 class="finalPc"> The bot chose ${pcChoice}</h3>
+    <h1 class="result"> ${result}! </h1>
+    <button class="nextButton"> Next Round </button>
+    `
+  );
+  document.querySelector(".finalInput").classList.toggle("showChoices");
+  document.querySelector(".finalPc").classList.toggle("showChoices");
+  document.querySelector(".result").classList.toggle("revealResult");
+  document.querySelector(".nextButton").addEventListener("click", nextGame);
+  document.querySelector(".nextButton").classList.toggle("nextRound");
 }
 
 function removeEventListeners() {
@@ -133,16 +132,19 @@ function removeOthers() {
   });
   console.log("the released options are:", removedOptions);
   removedOptions.forEach((removedOption) => {
-    document.querySelector(`.${removedOption}`).classList.toggle("reappear");
+    document
+      .querySelector(`.${removedOption}`)
+      .classList.toggle("resetButtons");
     document.querySelector(`.${removedOption}`).classList.toggle("explode");
   });
 }
 
 function nextGame() {
-  document.querySelector(".next").classList.toggle("appear");
-  document.querySelector(".next").innerHTML = "";
-  document.querySelector(".finalInput").classList.toggle("visible");
-  document.querySelector(".finalPc").classList.toggle("visible");
+  document.querySelector(".nextButton").classList.toggle("nextRound");
+  document.querySelector(".nextButton").innerHTML = "";
+  document.querySelector(".finalInput").classList.toggle("showChoices");
+  document.querySelector(".finalPc").classList.toggle("showChoices");
+  document.querySelector(".result").classList.toggle("result");
   document.querySelector(".textContainer").innerHTML = "";
   document.querySelector(".container").innerHTML = "";
   console.log("I removed it");
@@ -153,7 +155,7 @@ function nextGame() {
 
 function end() {
   console.log(answers);
-  DOMSelectors.body.innerHTML = "";
+
   countScore();
   console.log(
     "You won",
@@ -164,21 +166,32 @@ function end() {
     `${tie}`,
     "ties)"
   );
+  DOMSelectors.endContainer.insertAdjacentHTML(
+    "beforeend",
+    `
+    <h1> You won ${win} time(s) </h1>
+    <h1> You lost ${lose} time(s) </h1>
+    <h1> You tied ${tie} time(s) </h1>
+    `
+  );
+  document.querySelector(".endButton").removeEventListener("click", end);
+  DOMSelectors.container.innerHTML = "";
+  DOMSelectors.textContainer.innerHTML = "";
+  document.querySelector(".endContainer").classList.toggle("revealFinal");
 }
 
 function countScore() {
   for (let i = 0; i < answers.length; i++) {
     if (answers[i] === "winner") {
       win++;
-      console.log("once");
     } else if (answers[i] === "loser") {
       lose++;
-      console.log("twice");
     } else if (answers[i] === "tie") {
       tie++;
-      console.log("three");
     }
   }
 }
 
-document.querySelector(".end").addEventListener("click", end);
+document.querySelector(".endButton").addEventListener("click", end);
+
+// on the task, dont put your entire code (put less to make it easier)

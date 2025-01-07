@@ -15,6 +15,7 @@ const DOMSelectors = {
 let options = ["rock", "paper", "scissors"];
 let removedOptions = [];
 let chosenOption = [];
+let choice = "";
 let result = "";
 let answers = [];
 let pcChoice = "";
@@ -28,6 +29,7 @@ startGame();
 
 function startGame() {
   DOMSelectors.body.innerHTML = "";
+
   options.forEach((option) => {
     DOMSelectors.container.insertAdjacentHTML(
       "beforeend",
@@ -37,18 +39,12 @@ function startGame() {
   `
     );
   });
-  /*   options.forEach((option) => {
-    document
-      .querySelector(`${option}`)
-      .addEventListener("click", `${option}`)
-      .classList.toggle("reappear");
-  }); */
-  document.querySelector(".rock").addEventListener("click", rock);
-  document.querySelector(".paper").addEventListener("click", paper);
-  document.querySelector(".scissors").addEventListener("click", scissors);
   document.querySelector(".rock").classList.toggle("reappear");
   document.querySelector(".paper").classList.toggle("reappear");
   document.querySelector(".scissors").classList.toggle("reappear");
+  document.querySelector(".rock").addEventListener("click", rock);
+  document.querySelector(".paper").addEventListener("click", paper);
+  document.querySelector(".scissors").addEventListener("click", scissors);
 }
 
 function pcAnswer() {
@@ -79,60 +75,50 @@ function pcAnswer() {
   document.querySelector(".next").classList.toggle("appear");
 }
 
-function rock() {
-  inputChoice = "rock";
+function round(choice) {
+  inputChoice = choice;
   removeOthers();
-  console.log("rock was chosen");
+  console.log(`${inputChoice}`, "was chosen");
   pcAnswer();
-  if (pcChoice === "rock") {
-    console.log("Tie!");
+  if (inputChoice === pcChoice) {
+    console.log("tie!");
     result = "tie";
-  } else if (pcChoice === "paper") {
-    console.log("Loser!");
-    result = "loser";
-  } else if (pcChoice === "scissors") {
+  } else if (
+    (choice === "rock" && pcChoice === "scissors") ||
+    (choice === "paper" && pcChoice === "rock") ||
+    (choice === "scissors" && pcChoice === "paper")
+  ) {
     console.log("Winner!");
     result = "winner";
+  } else {
+    console.log("Loser!");
+    result = "loser";
   }
+
   answers.push(result);
+}
+
+function removeEventListeners() {
+  document.querySelector(".rock").removeEventListener("click", rock);
+  document.querySelector(".paper").removeEventListener("click", paper);
+  document.querySelector(".scissors").removeEventListener("click", scissors);
+}
+function rock() {
+  choice = "rock";
+  removeEventListeners();
+  round(choice);
 }
 
 function paper() {
-  inputChoice = "paper";
-  removeOthers();
-  console.log("paper was chosen");
-  pcAnswer();
-  if (pcChoice === "rock") {
-    console.log("Winner!");
-    result = "winner";
-  }
-  if (pcChoice === "paper") {
-    console.log("Tie!");
-    result = "tie";
-  } else if (pcChoice === "scissors") {
-    console.log("Loser!");
-    result = "loser";
-  }
-  answers.push(result);
+  choice = "paper";
+  removeEventListeners();
+  round(choice);
 }
 
 function scissors() {
-  inputChoice = "scissors";
-  removeOthers();
-  console.log("scissors was chosen");
-  pcAnswer();
-  if (pcChoice === "rock") {
-    console.log("Loser!");
-    result = "loser";
-  }
-  if (pcChoice === "paper") {
-    console.log("Winner!");
-    result = "winner";
-  } else if (pcChoice === "scissors") {
-    console.log("Tie!");
-    result = "tie";
-  }
-  answers.push(result);
+  choice = "scissors";
+  removeEventListeners();
+  round(choice);
 }
 
 function removeOthers() {
@@ -150,19 +136,8 @@ function removeOthers() {
     document.querySelector(`.${removedOption}`).classList.toggle("reappear");
     document.querySelector(`.${removedOption}`).classList.toggle("explode");
   });
-  hello();
 }
 
-/* function hello() {
-  DOMSelectors.container.innerHTML = "";
-  DOMSelectors.container.insertAdjacentHTML(
-    "beforeend",
-    `
-    <button class="${chosenOption}"> 
-    <img class="${chosenOption}img" src="${chosenOption}.png" alt="${chosenOption}"> </button>
-  `
-  );
-} */
 function nextGame() {
   document.querySelector(".next").classList.toggle("appear");
   document.querySelector(".next").innerHTML = "";

@@ -1,9 +1,41 @@
-.end {
-  text-align: center;
+html, body, * {
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} 
+
+.endButton,
+.nextButton,
+.replayButton {
+  margin-top: 50px;
+  font-size: 50px;
+  display: block; 
+  margin: 0 auto;
 }
 
+.finalInput,
+.finalPc {
+  font-size: 50px;
+  margin-top: 20px;
 
+}
+.result {
+  font-size: 75px;
 
+}
+.textContainer {
+  text-align: center;
+}
+.endContainer {
+  text-align: center;
+}
+.win,
+.lose,
+.tie {
+  font-size: 50px;
+  margin-top: 50px;
+}
 .rock,
 .paper,
 .scissors {
@@ -29,13 +61,83 @@
 
 .finalInput,
 .finalPc,
-.result {
+.result,
+.replayButton {
   opacity: 0;
 }
 
 .explode {
   animation: explode 2s ease-in-out both;
 }
+
+.revealFinal {
+  animation: appear 2s ease-in-out both;
+}
+
+.playAgain {
+  animation: appear 3s ease-in-out both;
+}
+
+.showChoices {
+  animation: appear 4s ease-in-out both;
+}
+
+.revealResult {
+  animation: appear 6s ease-in-out both;
+}
+
+.nextRound {
+  animation: appear 7s ease-in-out both;
+}
+
+.resetButtons {
+  animation: resetButtons 2s ease-in-out both;
+}
+@keyframes resetButtons {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 0.25;
+  }
+
+  70% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 @keyframes explode {
   0% {
@@ -63,146 +165,3 @@
     opacity: 0;
   }
 }
-
-.showChoices {
-  animation: showChoices 4s ease-in-out both;
-}
-
-@keyframes showChoices {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  60% {
-    opacity: 0.25;
-  }
-
-  70% {
-    opacity: 0.5;
-  }
-  80% {
-    opacity: 0.75;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.revealResult {
-  animation: revealResult 6s ease-in-out both;
-}
-
-@keyframes revealResult {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 0.25;
-  }
-  70% {
-    opacity: 0.5;
-  }
-  80% {
-    opacity: 0.75;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-
-.nextRound {
-  animation: nextRound 7s ease-in-out both;
-}
-
-@keyframes nextRound {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 0.25;
-  }
-  70% {
-    opacity: 0.5;
-  }
-  80% {
-    opacity: 0.75;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.resetButtons {
-  animation: resetButtons 2s ease-in-out both;
-}
-
-@keyframes resetButtons {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-
-  75% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-
-.revealFinal {
-  animation: showChoices 2s ease-in-out both;
-}
-
-@keyframes showChoices {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  60% {
-    opacity: 0.25;
-  }
-
-  70% {
-    opacity: 0.5;
-  }
-  80% {
-    opacity: 0.75;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-

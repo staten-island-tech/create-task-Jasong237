@@ -1,10 +1,11 @@
 import "../css/style.css";
 
 const DOMSelectors = {
+  endButton: document.querySelector(".endButton"),
+  buttonContainer: document.querySelector(".buttonContainer"),
   container: document.querySelector(".container"),
   textContainer: document.querySelector(".textContainer"),
   endContainer: document.querySelector(".endContainer"),
-  start: document.querySelector(".start"),
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
   scissors: document.querySelector(".scissors"),
@@ -15,11 +16,10 @@ const DOMSelectors = {
 let options = ["rock", "paper", "scissors"];
 let removedOptions = [];
 let chosenOption = [];
-let choice = "";
-let result = "";
 let answers = [];
 let pcChoice = "";
 let inputChoice = "";
+let result = "";
 let win = 0;
 let lose = 0;
 let tie = 0;
@@ -27,6 +27,17 @@ let tie = 0;
 startGame();
 
 function startGame() {
+  answers = [];
+  win = 0;
+  lose = 0;
+  tie = 0;
+  document.querySelector(".endContainer").innerHTML = "";
+  DOMSelectors.buttonContainer.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <button type="submit" class="endButton"> End Game </button>
+    `
+  );
   options.forEach((option) => {
     DOMSelectors.container.insertAdjacentHTML(
       "beforeend",
@@ -42,6 +53,7 @@ function startGame() {
   document.querySelector(".rock").addEventListener("click", rock);
   document.querySelector(".paper").addEventListener("click", paper);
   document.querySelector(".scissors").addEventListener("click", scissors);
+  document.querySelector(".endButton").addEventListener("click", end);
 }
 
 function pcAnswer() {
@@ -59,8 +71,7 @@ function pcAnswer() {
   console.log("You chose", inputChoice, "the bot chose", pcChoice);
 }
 
-function round(choice) {
-  inputChoice = choice;
+function round(inputChoice) {
   removeOthers();
   console.log(`${inputChoice}`, "was chosen");
   pcAnswer();
@@ -68,9 +79,9 @@ function round(choice) {
     console.log("tie!");
     result = "tie";
   } else if (
-    (choice === "rock" && pcChoice === "scissors") ||
-    (choice === "paper" && pcChoice === "rock") ||
-    (choice === "scissors" && pcChoice === "paper")
+    (inputChoice === "rock" && pcChoice === "scissors") ||
+    (inputChoice === "paper" && pcChoice === "rock") ||
+    (inputChoice === "scissors" && pcChoice === "paper")
   ) {
     console.log("Winner!");
     result = "winner";
@@ -103,21 +114,21 @@ function removeEventListeners() {
   document.querySelector(".scissors").removeEventListener("click", scissors);
 }
 function rock() {
-  choice = "rock";
+  inputChoice = "rock";
   removeEventListeners();
-  round(choice);
+  round(inputChoice);
 }
 
 function paper() {
-  choice = "paper";
+  inputChoice = "paper";
   removeEventListeners();
-  round(choice);
+  round(inputChoice);
 }
 
 function scissors() {
-  choice = "scissors";
+  inputChoice = "scissors";
   removeEventListeners();
-  round(choice);
+  round(inputChoice);
 }
 
 function removeOthers() {
@@ -155,7 +166,6 @@ function nextGame() {
 
 function end() {
   console.log(answers);
-
   countScore();
   console.log(
     "You won",
@@ -169,15 +179,19 @@ function end() {
   DOMSelectors.endContainer.insertAdjacentHTML(
     "beforeend",
     `
-    <h1> You won ${win} time(s) </h1>
-    <h1> You lost ${lose} time(s) </h1>
-    <h1> You tied ${tie} time(s) </h1>
+    <h1 class="win"> You won ${win} time(s) </h1>
+    <h1 class="lose"> You lost ${lose} time(s) </h1>
+    <h1 class="tie"> You tied ${tie} time(s) </h1>
+    <button class="replayButton"> Play Again? </button>
     `
   );
   document.querySelector(".endButton").removeEventListener("click", end);
+  DOMSelectors.buttonContainer.innerHTML = "";
   DOMSelectors.container.innerHTML = "";
   DOMSelectors.textContainer.innerHTML = "";
   document.querySelector(".endContainer").classList.toggle("revealFinal");
+  document.querySelector(".replayButton").classList.toggle("playAgain");
+  document.querySelector(".replayButton").addEventListener("click", startGame);
 }
 
 function countScore() {
@@ -192,6 +206,7 @@ function countScore() {
   }
 }
 
-document.querySelector(".endButton").addEventListener("click", end);
-
 // on the task, dont put your entire code (put less to make it easier)
+
+// fix the ending scores
+//

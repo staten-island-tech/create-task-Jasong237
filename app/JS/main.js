@@ -5,6 +5,7 @@ const DOMSelectors = {
   buttonContainer: document.querySelector(".buttonContainer"),
   container: document.querySelector(".container"),
   textContainer: document.querySelector(".textContainer"),
+  textContainerTwo: document.querySelector(".textContainerTwo"),
   endContainer: document.querySelector(".endContainer"),
   rock: document.querySelector(".rock"),
   paper: document.querySelector(".paper"),
@@ -24,20 +25,16 @@ let win = 0;
 let lose = 0;
 let tie = 0;
 
+DOMSelectors.buttonContainer.insertAdjacentHTML(
+  "afterbegin",
+  `
+  <button type="submit" class="endButton"> End Game </button>
+  `
+);
+
 startGame();
 
 function startGame() {
-  answers = [];
-  win = 0;
-  lose = 0;
-  tie = 0;
-  document.querySelector(".endContainer").innerHTML = "";
-  DOMSelectors.buttonContainer.insertAdjacentHTML(
-    "afterbegin",
-    `
-    <button type="submit" class="endButton"> End Game </button>
-    `
-  );
   options.forEach((option) => {
     DOMSelectors.container.insertAdjacentHTML(
       "beforeend",
@@ -95,17 +92,26 @@ function round(inputChoice) {
   DOMSelectors.textContainer.insertAdjacentHTML(
     "beforeend",
     `
-    <h3 class="finalInput"> You chose ${inputChoice}</h3>
-    <h3 class="finalPc"> The bot chose ${pcChoice}</h3>
+    <h3 class="finalInput"> You chose ${inputChoice}...</h3>
+    <h3 class="finalPc"> and the bot chose ${pcChoice}</h3>`
+  );
+  DOMSelectors.textContainerTwo.insertAdjacentHTML(
+    "beforeend",
+    `
+    <button class="pcChoice"> 
+    <img class="pcImg" src="${pcChoice}.png" alt="${pcChoice}"> </button>
     <h1 class="result"> ${result}! </h1>
     <button class="nextButton"> Next Round </button>
     `
   );
-  document.querySelector(".finalInput").classList.toggle("showChoices");
-  document.querySelector(".finalPc").classList.toggle("showChoices");
-  document.querySelector(".result").classList.toggle("revealResult");
+
+  document.querySelector(".finalInput").classList.toggle("fourSeconds");
+  document.querySelector(".finalPc").classList.toggle("fiveSeconds");
+  document.querySelector(".pcImg").classList.toggle("fiveSeconds");
+  document.querySelector(".pcChoice").classList.toggle("fiveSeconds");
+  document.querySelector(".result").classList.toggle("sixSeconds");
   document.querySelector(".nextButton").addEventListener("click", nextGame);
-  document.querySelector(".nextButton").classList.toggle("nextRound");
+  document.querySelector(".nextButton").classList.toggle("sevenSeconds");
 }
 
 function removeEventListeners() {
@@ -151,12 +157,13 @@ function removeOthers() {
 }
 
 function nextGame() {
-  document.querySelector(".nextButton").classList.toggle("nextRound");
+  document.querySelector(".nextButton").classList.toggle("sevenSeconds");
   document.querySelector(".nextButton").innerHTML = "";
-  document.querySelector(".finalInput").classList.toggle("showChoices");
-  document.querySelector(".finalPc").classList.toggle("showChoices");
-  document.querySelector(".result").classList.toggle("result");
+  document.querySelector(".finalInput").classList.toggle("fiveSeconds");
+  document.querySelector(".finalPc").classList.toggle("fiveSeconds");
+  document.querySelector(".result").classList.toggle("sixSeconds");
   document.querySelector(".textContainer").innerHTML = "";
+  document.querySelector(".textContainerTwo").innerHTML = "";
   document.querySelector(".container").innerHTML = "";
   console.log("I removed it");
   removedOptions = [];
@@ -189,9 +196,28 @@ function end() {
   DOMSelectors.buttonContainer.innerHTML = "";
   DOMSelectors.container.innerHTML = "";
   DOMSelectors.textContainer.innerHTML = "";
-  document.querySelector(".endContainer").classList.toggle("revealFinal");
-  document.querySelector(".replayButton").classList.toggle("playAgain");
-  document.querySelector(".replayButton").addEventListener("click", startGame);
+  document.querySelector(".endContainer").classList.toggle("twoseconds");
+  document.querySelector(".replayButton").classList.toggle("threeSeconds");
+  document
+    .querySelector(".replayButton")
+    .addEventListener("click", restartGame);
+}
+
+function restartGame() {
+  document.querySelector(".endContainer").classList.toggle("twoseconds");
+  document.querySelector(".replayButton").classList.toggle("threeSeconds");
+  answers = [];
+  win = 0;
+  lose = 0;
+  tie = 0;
+  document.querySelector(".endContainer").innerHTML = "";
+  DOMSelectors.buttonContainer.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <button type="submit" class="endButton"> End Game </button>
+    `
+  );
+  startGame();
 }
 
 function countScore() {
@@ -208,5 +234,4 @@ function countScore() {
 
 // on the task, dont put your entire code (put less to make it easier)
 
-// fix the ending scores
 //

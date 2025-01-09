@@ -196,6 +196,7 @@ function end() {
   DOMSelectors.buttonContainer.innerHTML = "";
   DOMSelectors.container.innerHTML = "";
   DOMSelectors.textContainer.innerHTML = "";
+  DOMSelectors.textContainerTwo.innerHTML = "";
   document.querySelector(".endContainer").classList.toggle("twoseconds");
   document.querySelector(".replayButton").classList.toggle("threeSeconds");
   document

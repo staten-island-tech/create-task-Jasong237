@@ -234,4 +234,4 @@ function countScore() {
 
 // on the task, dont put your entire code (put less to make it easier)
 
-//
+// fix end results again haha

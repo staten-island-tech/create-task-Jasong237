@@ -1,17 +1,11 @@
 import "../css/style.css";
 
 const DOMSelectors = {
-  endButton: document.querySelector(".endButton"),
   buttonContainer: document.querySelector(".buttonContainer"),
   container: document.querySelector(".container"),
   textContainer: document.querySelector(".textContainer"),
   textContainerTwo: document.querySelector(".textContainerTwo"),
   endContainer: document.querySelector(".endContainer"),
-  rock: document.querySelector(".rock"),
-  paper: document.querySelector(".paper"),
-  scissors: document.querySelector(".scissors"),
-  finalPc: document.querySelector(".finalPc"),
-  result: document.querySelector(".result"),
 };
 
 let options = ["rock", "paper", "scissors"];
@@ -28,8 +22,8 @@ let tie = 0;
 DOMSelectors.buttonContainer.insertAdjacentHTML(
   "afterbegin",
   `
-  <button type="submit" class="endButton"> End Game </button>
-  `
+    <button type="submit" class="endButton"> End Game </button>
+    `
 );
 
 startGame();
@@ -39,11 +33,12 @@ function startGame() {
     DOMSelectors.container.insertAdjacentHTML(
       "beforeend",
       `
-  <button class="${option}"> 
-  <img class="${option}img" src="${option}.png" alt="${option}"> </button>
-  `
+    <button class="${option}"> 
+    <img class="${option}img" src="${option}.png" alt="${option}"> </button>
+    `
     );
   });
+
   document.querySelector(".rock").classList.toggle("resetButtons");
   document.querySelector(".paper").classList.toggle("resetButtons");
   document.querySelector(".scissors").classList.toggle("resetButtons");
@@ -92,17 +87,17 @@ function round(inputChoice) {
   DOMSelectors.textContainer.insertAdjacentHTML(
     "beforeend",
     `
-    <h3 class="finalInput"> You chose ${inputChoice}...</h3>
-    <h3 class="finalPc"> and the bot chose ${pcChoice}</h3>`
+      <h3 class="finalInput"> You chose ${inputChoice}...</h3>
+      <h3 class="finalPc"> and the bot chose ${pcChoice}</h3>`
   );
   DOMSelectors.textContainerTwo.insertAdjacentHTML(
     "beforeend",
     `
-    <button class="pcChoice"> 
-    <img class="pcImg" src="${pcChoice}.png" alt="${pcChoice}"> </button>
-    <h1 class="result"> ${result}! </h1>
-    <button class="nextButton"> Next Round </button>
-    `
+      <button class="pcChoice"> 
+      <img class="pcImg" src="${pcChoice}.png" alt="${pcChoice}"> </button>
+      <h1 class="result"> ${result}! </h1>
+      <button class="nextButton"> Next Round </button>
+      `
   );
 
   document.querySelector(".finalInput").classList.toggle("fourSeconds");
@@ -186,18 +181,18 @@ function end() {
   DOMSelectors.endContainer.insertAdjacentHTML(
     "beforeend",
     `
-    <h1 class="win"> You won ${win} time(s) </h1>
-    <h1 class="lose"> You lost ${lose} time(s) </h1>
-    <h1 class="tie"> You tied ${tie} time(s) </h1>
-    <button class="replayButton"> Play Again? </button>
-    `
+      <h1 class="win"> You won ${win} time(s) </h1>
+      <h1 class="lose"> You lost ${lose} time(s) </h1>
+      <h1 class="tie"> You tied ${tie} time(s) </h1>
+      <button class="replayButton"> Play Again? </button>
+      `
   );
   document.querySelector(".endButton").removeEventListener("click", end);
   DOMSelectors.buttonContainer.innerHTML = "";
   DOMSelectors.container.innerHTML = "";
   DOMSelectors.textContainer.innerHTML = "";
   DOMSelectors.textContainerTwo.innerHTML = "";
-  document.querySelector(".endContainer").classList.toggle("twoseconds");
+  document.querySelector(".endContainer").classList.toggle("twoSeconds");
   document.querySelector(".replayButton").classList.toggle("threeSeconds");
   document
     .querySelector(".replayButton")
@@ -205,7 +200,7 @@ function end() {
 }
 
 function restartGame() {
-  document.querySelector(".endContainer").classList.toggle("twoseconds");
+  document.querySelector(".endContainer").classList.toggle("twoSeconds");
   document.querySelector(".replayButton").classList.toggle("threeSeconds");
   answers = [];
   win = 0;
@@ -215,8 +210,8 @@ function restartGame() {
   DOMSelectors.buttonContainer.insertAdjacentHTML(
     "afterbegin",
     `
-    <button type="submit" class="endButton"> End Game </button>
-    `
+      <button type="submit" class="endButton"> End Game </button>
+      `
   );
   startGame();
 }
@@ -232,7 +227,3 @@ function countScore() {
     }
   }
 }
-
-// on the task, dont put your entire code (put less to make it easier)
-
-// fix end results again haha

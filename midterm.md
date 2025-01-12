@@ -24,3 +24,11 @@ ask to build out smth and see what it would look like
 or
 
 receive last years projects and find mistakes
+
+
+
+
+
+// on the task, dont put your entire code (put less to make it easier)
+
+// fix end results again haha

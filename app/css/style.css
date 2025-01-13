@@ -29,11 +29,9 @@ body {
 .finalPc {
   font-size: 50px;
   margin-top: 20px;
-
 }
 .result {
   font-size: 75px;
-
 }
 .textContainer,
 .textContainerTwo,
@@ -58,6 +56,7 @@ body {
   margin: 100px;
   margin-top: 50px;
   margin-bottom: 0px;
+<<<<<<< Updated upstream
   background-color: #1cab09; 
   border-radius: 50%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -66,6 +65,29 @@ body {
 
 button:hover {
   background-color: #116c05;
+=======
+<<<<<<< HEAD
+  border-color: black;
+  border-radius: 20px; 
+}
+
+.rock:hover,
+.paper:hover,
+.scissors:hover,
+.pcChoice:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+=======
+  background-color: #1cab09; 
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, background-color 0.3s ease; 
+}
+
+button:hover {
+  background-color: #116c05;
+>>>>>>> 41c4ab04a5228c73c2e9f61e1cdfdf6aa170377b
+>>>>>>> Stashed changes
 }
 
 
@@ -104,6 +126,33 @@ button:hover {
 .replayButton {
   opacity: 0;
 }
+
+.endButton {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.replayButton {
+  margin-top: 50px;
+}
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #181616;
+  background-image: linear-gradient(90deg, rgba(20, 146, 66, 0.5), rgba(26, 54, 215, 0.5));
+  color: #f0f0f0; /* Light text color */
+}
+
+button {
+  background-color: #105e21; /* Vibrant button color */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 .explode {
   animation: explode 2s ease-in-out both;

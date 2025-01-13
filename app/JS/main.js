@@ -19,7 +19,6 @@ let win = 0;
 let lose = 0;
 let tie = 0;
 
-console.log("Hello we are at the game");
 DOMSelectors.buttonContainer.insertAdjacentHTML(
   "afterbegin",
   `
@@ -214,7 +213,6 @@ function restartGame() {
       <button type="submit" class="endButton"> End Game </button>
       `
   );
-  console.log("A new game begins...");
   startGame();
 }
 
